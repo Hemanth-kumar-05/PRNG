@@ -120,6 +120,13 @@ num_random_numbers = sidebar.selectbox("Width and Height", [100, 200, 256, 300])
 if "Linear Congruential Generator" in choose_prng:
     st.header("Linear Congruential Generator")
     st.write("The Linear Congruential Generator (LCG) is a simple pseudorandom number generator that generates a sequence of numbers calculated with a linear equation. The method represents one of the oldest and best-known pseudorandom number generator algorithms.")
+    st.write("The generator is defined by the recurrence relation")
+    st.latex(r'X_{n+1} = (a \cdot X_n + c) \mod m')
+    st.write("where:")
+    st.write("X_n is the sequence of pseudorandom values")
+    st.write("a is the multiplier")
+    st.write("c is the increment")
+    st.write("m is the modulus")
 
     st.subheader("Parameters")
     input_col = st.columns(3)
