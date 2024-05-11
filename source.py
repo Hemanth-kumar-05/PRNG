@@ -116,17 +116,23 @@ choose_prng = sidebar.multiselect("Choose a PRNG technique", ["Linear Congruenti
 num_random_numbers = sidebar.selectbox("Width and Height", [100, 200, 256, 300])
 
 # PRNG Algorithms
-
 if "Linear Congruential Generator" in choose_prng:
     st.header("Linear Congruential Generator")
     st.write("The Linear Congruential Generator (LCG) is a simple pseudorandom number generator that generates a sequence of numbers calculated with a linear equation. The method represents one of the oldest and best-known pseudorandom number generator algorithms.")
-    st.write("The generator is defined by the recurrence relation")
-    st.latex(r'X_{n+1} = (a \cdot X_n + c) \mod m')
+
+    st.latex(r'''
+    X_{n+1} = (a \cdot X_n + c) \mod m
+    ''')
     st.write("where:")
-    st.write("X_n is the sequence of pseudorandom values")
-    st.write("a is the multiplier")
-    st.write("c is the increment")
-    st.write("m is the modulus")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &a : \text{{Multiplier}} \\
+    &c : \text{{Increment}} \\
+    &m : \text{{Modulus}} \\
+    \end{align*}
+    ''')
 
     st.subheader("Parameters")
     input_col = st.columns(3)
@@ -146,6 +152,18 @@ if "Mersenne Twister" in choose_prng:
     st.header("Mersenne Twister")
     st.write("The Mersenne Twister is a pseudorandom number generator (PRNG). It is by far the most widely used general-purpose PRNG. Its name derives from the fact that period length is chosen to be a Mersenne prime.")
 
+    st.latex(r'''
+    X_{n+1} = \text{{rand}}(X_n)
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &\text{{rand}} : \text{{Random number generator function}} \\
+    \end{align*}
+    ''')
+
     st.subheader("Parameters")
     seed = st.slider("Seed", min_value=0, value=0, key="Seed Mersenne Twister")
     mt = MersenneTwister(seed)
@@ -160,6 +178,18 @@ if "Mersenne Twister" in choose_prng:
 if "XOR Shift" in choose_prng:
     st.header("XOR Shift")
     st.write("Xorshift is a pseudorandom number generator introduced by George Marsaglia. It is based on a linear feedback shift register. It is one of the most efficient algorithms for generating random numbers with a very long period.")
+
+    st.latex(r'''
+    X_{n+1} = X_n \oplus ((X_n << a) \oplus (X_n >> b) \oplus (X_n << c))
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &a, b, c : \text{{Parameters}} \\
+    \end{align*}
+    ''')
 
     st.subheader("Parameters")
     input_col = st.columns(3)
@@ -179,6 +209,19 @@ if "Middle Square Method" in choose_prng:
     st.header("Middle Square Method")
     st.write("The middle-square method is a method of generating pseudorandom numbers. In the middle-square method, the digits of the number are squared, and the middle digits of the result are used as the next number. The process is repeated until the number has enough digits.")
 
+    st.latex(r'''
+    X_{n+1} = \text{{Middle}}(X_n^2)
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &\text{{Middle}} : \text{{Middle digits of the result}} \\
+    \end{align*}
+    ''')
+
+
     st.subheader("Parameters")
     seed = st.slider("Seed", min_value=0, max_value=100000 ,value=0, key="Seed Middle Square Method")
     middle_square = MiddleSquare(seed, 4)
@@ -192,6 +235,18 @@ if "Middle Square Method" in choose_prng:
 if "Lagged Fibonacci Generator" in choose_prng:
     st.header("Lagged Fibonacci Generator")
     st.write("The Lagged Fibonacci Generator is a pseudorandom number generator that generates a sequence of numbers calculated with a linear equation. The method represents one of the oldest and best-known pseudorandom number generator algorithms.")
+
+    st.latex(r'''
+    X_{n+1} = (X_{n-lag} + X_{n-lag+1}) \mod 2^{32}
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &\text{{lag}} : \text{{Lag}} \\
+    \end{align*}
+    ''')
 
     st.subheader("Parameters")
     seed = st.slider("Seed", min_value=0, value=0, key="Seed Lagged Fibonacci Generator")
@@ -207,6 +262,19 @@ if "Lagged Fibonacci Generator" in choose_prng:
 if "Lehmer Random Number Generator" in choose_prng:
     st.header("Lehmer Random Number Generator")
     st.write("The Lehmer random number generator is a type of linear congruential generator. It is a simple pseudorandom number generator that generates a sequence of numbers calculated with a linear equation. The method represents one of the oldest and best-known pseudorandom number generator algorithms.")
+
+    st.latex(r'''
+    X_{n+1} = (a \cdot X_n) \mod m
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &a : \text{{Multiplier}} \\
+    &m : \text{{Modulus}} \\
+    \end{align*}
+    ''')
 
     st.subheader("Parameters")
     input_col = st.columns(2)
@@ -224,6 +292,20 @@ if "Lehmer Random Number Generator" in choose_prng:
 if "Linear Feedback Shift Register" in choose_prng:
     st.header("Linear Feedback Shift Register")
     st.write("A linear-feedback shift register (LFSR) is a shift register whose input bit is a linear function of its previous state. The most commonly used linear function of single bits is exclusive-or (XOR). Thus, an LFSR is most often a shift register whose input bit is driven by the XOR of some bits of the overall shift register value.")
+
+    st.latex(r'''
+    X_{n+1} = X_n \oplus (X_n \gg k)
+    ''')
+    st.write("where:")
+    st.latex(r'''
+    \begin{align*}
+    &X_n : \text{{Current random number}} \\
+    &X_{n+1} : \text{{Next random number}} \\
+    &k : \text{{Denotes the feedback tap positions}}
+    \end{align*}
+    ''')
+
+
 
     st.subheader("Parameters")
     seed = st.slider("Seed", min_value=0, max_value=100000, value=0, key="Seed LFSR")
